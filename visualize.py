@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Load data from file
 numpy_data = np.load("Datasets/x.npy")
-data = numpy_data[35]
+data = numpy_data[20]
 colors = plt.cm.jet(np.linspace(0, 1, len(data)))
 
 #show image
@@ -32,8 +32,8 @@ plt.show()
 
 
 fps = 30
-frame_width = 1280  # Increase the frame width
-frame_height = 720  # Increase the frame height
+frame_width = 680  # Increase the frame width
+frame_height = 480  # Increase the frame height
 frame_size = (frame_width, frame_height)
 
 # Create a VideoWriter object
@@ -49,9 +49,23 @@ while True:
         # Create a blank frame
         img = np.zeros((frame_size[1], frame_size[0], 3), dtype=np.uint8)
         
+        # Calculate center coordinates of the frame
+        center_x = frame_width // 2
+        center_y = frame_height // 2
+        
         # Plot the points with different colors for each frame
         for j in range(len(x)):
-            cv2.circle(img, (int(x[j]*frame_size[0]), int(y[j]*frame_size[1])), 5, (int(colors[i][0]*255), int(colors[i][1]*255), int(colors[i][2]*255)), -1)
+
+            # Shift the points to the center of the frame and scale them
+            point_x = int(x[j] * 400 + center_x)  # Adjust the scaling factor as needed
+            point_y = int(y[j] * 400 + center_y)  # Adjust the scaling factor as needed
+            
+            # # No scaling
+            # point_x = int(x[j])  # Adjust the scaling factor as needed
+            # point_y = int(y[j])
+
+            # Plot the points
+            cv2.circle(img, (point_x, point_y), 5, (int(colors[i][0]*255), int(colors[i][1]*255), int(colors[i][2]*255)), -1)
         
         # Write frame to video
         out.write(img)

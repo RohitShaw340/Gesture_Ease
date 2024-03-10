@@ -40,12 +40,6 @@ while True:
     if not ret:
         break
 
-    if timer:
-        print(timer)
-        timer-=1
-        if timer == 0:
-            print("start collecting data")
-        continue
     # Convert the frame to RGB
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -83,12 +77,11 @@ while True:
         frame_data=[]
         print("Data Collected : ", len(dataset))
         print("Data appended")
-        # cv2.waitKey(1)
-        # choice = input("Do you want to continue? (y/n) : ")
-        timer=100
+        # cv2.waitKey(1)   
         
+        print("Start collecting data again....")     
     
-    if(len(dataset) == 3):
+    if(len(dataset) == 30):
         break
 # Release the webcam and close all windows
 cap.release()
